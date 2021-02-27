@@ -152,7 +152,7 @@ if(${TRITON_ENABLE_S3})
 endif()
 
 if(${TRITON_ENABLE_GPU})
-if ((NOT WIN32) AND (NOT ${ARCH} MATCHES "aarch64"))
+if ((NOT ${ARCH} MATCHES "aarch64"))
   set(CUDA_LIBRARIES PUBLIC ${CUDA_LIBRARIES})
   cuda_add_library(
     kernel-library 
@@ -160,7 +160,7 @@ if ((NOT WIN32) AND (NOT ${ARCH} MATCHES "aarch64"))
     OPTIONS -arch compute_60
     OPTIONS -code compute_60,sm_60,sm_61,sm_62,sm_70,sm_72,sm_75,sm_80
   )
-endif() # NOT WIN32 AND NOT "aarch64"
+endif() # NOT "aarch64"
 endif() # TRITON_ENABLE_GPU
 
 set(
