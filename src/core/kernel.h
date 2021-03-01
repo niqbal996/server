@@ -28,7 +28,15 @@
 #include <cuda_runtime_api.h>
 #include <stdint.h>
 
-cudaError_t RunGatherKernel(
+#if defined(_MSC_VER)
+#define TRITONKERNEL_DECLSPEC __declspec(dllexport)
+#elif defined(__GNUC__)
+#define TRITONKERNEL_DECLSPEC __attribute__((__visibility__("default")))
+#else
+#define TRITONKERNEL_DECLSPEC
+#endif
+
+TRITONKERNEL_DECLSPEC cudaError_t RunGatherKernel(
     const int8_t** input_ptr_buffer, const size_t* byte_size_buffer,
     const size_t* byte_size_offset_buffer, int8_t* output_buffer,
     size_t request_count, cudaStream_t stream);
